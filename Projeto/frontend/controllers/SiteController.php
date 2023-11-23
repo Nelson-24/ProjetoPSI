@@ -144,7 +144,11 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
-    }
+
+    }public function actionArtigo()
+{
+    return $this->render('artigo');
+}
 
     /**
      * Signs user up.
