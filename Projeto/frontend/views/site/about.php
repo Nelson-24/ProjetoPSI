@@ -7,10 +7,30 @@ use yii\helpers\Html;
 $this->title = 'About';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-about">
-    <h1><?= Html::encode($this->title) ?></h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
 
-    <p>This is the About page. You may modify the following file to customize its content:</p>
+<header>
+    <h1>CRM</h1>
+</header>
 
-    <code><?= __FILE__ ?></code>
+<div class="about-us-container">
+    <h2>Sobre Nós</h2>
+    <p>Bem-vindo à CRM Somos uma empresa dedicada a venda de materiais de construção.</p>
+    <p>Nossa sede está localizada em Leiria, e temos uma equipe apaixonada comprometida.</p>
+    <p>Entre em contato conosco se tiver dúvidas ou se precisar de mais informações.</p>
 </div>
+
+<footer>
+    <p>&copy; 2023 CRM. Todos os direitos reservados.</p>
+</footer>
+
+</body>
+</html>

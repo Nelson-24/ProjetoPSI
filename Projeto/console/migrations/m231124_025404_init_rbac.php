@@ -3,9 +3,9 @@
 use yii\db\Migration;
 
 /**
- * Class m231120_200456_init_rbac
+ * Class m231124_025404_init_rbac
  */
-class m231120_200456_init_rbac extends Migration
+class m231124_025404_init_rbac extends Migration
 {
     /**
      * {@inheritdoc}
@@ -112,12 +112,13 @@ class m231120_200456_init_rbac extends Migration
         $auth->addChild($admin , $func);
     }
 
+
     /**
      * {@inheritdoc}
      */
     public function safeDown()
     {
-        echo "m231120_200456_init_rbac cannot be reverted.\n";
+        echo "m231124_025404_init_rbac cannot be reverted.\n";
 
         return false;
     }
@@ -131,7 +132,7 @@ class m231120_200456_init_rbac extends Migration
 
     public function down()
     {
-        echo "m231120_200456_init_rbac cannot be reverted.\n";
+        echo "m231124_025404_init_rbac cannot be reverted.\n";
 
         return false;
     }
