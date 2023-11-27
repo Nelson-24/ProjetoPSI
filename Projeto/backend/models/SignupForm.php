@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\models;
+namespace backend\models;
 
 use common\models\Profile;
 use common\models\User;
@@ -15,6 +15,11 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
+
+    public $nome;
+    public $nif;
+    public $morada;
+    public $contacto;
 
 
     /**
@@ -36,6 +41,12 @@ class SignupForm extends Model
 
             ['password', 'required'],
             ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
+
+
+            ['nif', 'required'],
+            ['nome', 'required'],
+            ['morada', 'required'],
+            ['contacto', 'required'],
         ];
     }
 
@@ -44,10 +55,11 @@ class SignupForm extends Model
      *
      * @return User whether the creating new account was successful and email was sent
      */
-    public function signup()
+   public function signup()
     {
         if ($this->validate()) {
             $user = new User();
+
             $user->username = $this->username;
             $user->email = $this->email;
             $user->setPassword($this->password);
@@ -55,34 +67,62 @@ class SignupForm extends Model
             $user->save(false);
 
             $profile = new Profile();
+            $profile->user_id = $user->getId();
+            $profile->nome = $this->nome;
+            $profile->nif = $this->nif;
+            $profile->morada = $this->morada;
+            $profile->contacto = $this->contacto;
+            $profile->save(false);
+
+
+
 
             // the following three lines were added:
             $auth = \Yii::$app->authManager;
-            $authorRole = $auth->getRole('cliente');
+            $authorRole = $auth->getRole('funcionario');
             $auth->assign($authorRole, $user->getId());
 
             return $user;
+
         }
 
         return null;
     }
+}
+  /*  public function signup()
+    {
+        if ($this->validate()) {
+            $user = new User();
+            $user->username = $this->username;
+            $user->email = $this->email;
+            $user->setPassword($this->password);
+            $user->generateAuthKey();
+
+            if ($user->save(false)) {
+                // O usuário foi salvo com sucesso
+                $profile = new Profile();
+                $profile->user_id = $user->getId(); // Estabelece a relação com o ID do usuário
+                $profile->nome = $this->nome;
+                $profile->nif = $this->nif;
+                $profile->morada = $this->morada;
+                $profile->contacto = $this->contacto;
+
+                if ($profile->save(false)) {
+                    // O perfil foi salvo com sucesso
+                    return $user;
+
+
+                }
+            }
+            return null;
+        }
+    }*/
+
+
+
 
     /**
      * Sends confirmation email to user
      * @param User $user user model to with email should be send
      * @return bool whether the email was sent
      */
-    protected function sendEmail($user)
-    {
-        return Yii::$app
-            ->mailer
-            ->compose(
-                ['html' => 'emailVerify-html', 'text' => 'emailVerify-text'],
-                ['user' => $user]
-            )
-            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
-            ->setTo($this->email)
-            ->setSubject('Account registration at ' . Yii::$app->name)
-            ->send();
-    }
-}

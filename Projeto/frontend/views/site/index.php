@@ -1,6 +1,6 @@
 <?php
 
-/** @var yii\web\View $this */
+
 
 $this->title = 'CRM';
 ?>
@@ -15,16 +15,16 @@ $this->title = 'CRM';
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
     <!-- site metas -->
-    <title>Eflyer</title>
+    <title>CRM</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- bootstrap css -->
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="web/css/bootstrap.min.css">
     <!-- style css -->
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <!-- Responsive-->
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="../../web/css/responsive.css">
     <!-- fevicon -->
     <link rel="icon" href="images/fevicon.png" type="image/gif" />
     <!-- Scrollbar Custom CSS -->
@@ -50,15 +50,6 @@ $this->title = 'CRM';
         <div class="header_section_top">
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="custom_menu">
-                        <ul>
-                            <li><a href="#">Best Sellers</a></li>
-                            <li><a href="#">Gift Ideas</a></li>
-                            <li><a href="#">New Releases</a></li>
-                            <li><a href="#">Today's Deals</a></li>
-                            <li><a href="#">Customer Service</a></li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
@@ -69,7 +60,7 @@ $this->title = 'CRM';
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="logo"><a href="index.html"><img src="images/logo.png"></a></div>
+                    <div class="logo"><a href="index.html"><img src="images/logo.png"></a></div> <!-- LOGOTIPO DE CIMA -->
                 </div>
             </div>
         </div>
@@ -82,24 +73,15 @@ $this->title = 'CRM';
                 <div id="mySidenav" class="sidenav">
                     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                     <a href="index.html">Home</a>
-                    <a href="fashion.html">Fashion</a>
-                    <a href="electronic.html">Electronic</a>
-                    <a href="jewellery.html">Jewellery</a>
+                    <a href="Fasion.html">Artigos</a>
+                    <a href="electronic.html">About us</a> <!-- Alterar os Links-->
+                    <a href="jewellery.html">Perfil</a>    <!-- COLOCARA BOTÃO DE LOGOUT-->
                 </div>
                 <span class="toggle_icon" onclick="openNav()"><img src="images/toggle-icon.png"></span>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Category
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </div>
                 <div class="main">
                     <!-- Another variation with a button -->
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search this blog">
+                        <input type="text" class="form-control" placeholder="Procurar Artigos...">
                         <div class="input-group-append">
                             <button class="btn btn-secondary" type="button" style="background-color: #f26522; border-color:#f26522 ">
                                 <i class="fa fa-search"></i>
@@ -108,26 +90,15 @@ $this->title = 'CRM';
                     </div>
                 </div>
                 <div class="header_box">
-                    <div class="lang_box ">
-                        <a href="#" title="Language" class="nav-link" data-toggle="dropdown" aria-expanded="true">
-                            <img src="images/flag-uk.png" alt="flag" class="mr-2 " title="United Kingdom"> English <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>
-                        </a>
-                        <div class="dropdown-menu ">
-                            <a href="#" class="dropdown-item">
-                                <img src="images/flag-france.png" class="mr-2" alt="flag">
-                                French
-                            </a>
-                        </div>
-                    </div>
                     <div class="login_menu">
                         <ul>
                             <li><a href="#">
                                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                    <span class="padding_10">Cart</span></a>
+                                    <span class="padding_10">Carrinho</span></a>
                             </li>
                             <li><a href="#">
                                     <i class="fa fa-user" aria-hidden="true"></i>
-                                    <span class="padding_10">Cart</span></a>
+                                    <span class="padding_10">Perfil</span></a>
                             </li>
                         </ul>
                     </div>
@@ -144,24 +115,24 @@ $this->title = 'CRM';
                     <div class="carousel-item active">
                         <div class="row">
                             <div class="col-sm-12">
-                                <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
-                                <div class="buynow_bt"><a href="#">Buy Now</a></div>
+                                <h1 class="banner_taital">Loja CRM <br>Loja de Materiais de Construção</h1>
+                                <div class="buynow_bt"><a href="artigo.php">Comprar agora</a></div>
                             </div>
                         </div>
                     </div>
                     <div class="carousel-item">
                         <div class="row">
                             <div class="col-sm-12">
-                                <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
-                                <div class="buynow_bt"><a href="#">Buy Now</a></div>
+                                <h1 class="banner_taital">Loja CRM <br>Loja de Materiais de Construção</h1>
+                                <div class="buynow_bt"><a href="#">Comprar agora</a></div>
                             </div>
                         </div>
                     </div>
                     <div class="carousel-item">
                         <div class="row">
                             <div class="col-sm-12">
-                                <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
-                                <div class="buynow_bt"><a href="#">Buy Now</a></div>
+                                <h1 class="banner_taital">Loja CRM <br>Loja de Materiais de Construção</h1>
+                                <div class="buynow_bt"><a href="#">Comprar agora</a></div>
                             </div>
                         </div>
                     </div>
@@ -184,39 +155,39 @@ $this->title = 'CRM';
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <div class="container">
-                    <h1 class="fashion_taital">Man & Woman Fashion</h1>
+                    <h1 class="fashion_taital">Materiais de Construção</h1>
                     <div class="fashion_section_2">
                         <div class="row">
                             <div class="col-lg-4 col-sm-4">
                                 <div class="box_main">
-                                    <h4 class="shirt_text">Man T -shirt</h4>
-                                    <p class="price_text">Price  <span style="color: #262626;">$ 30</span></p>
-                                    <div class="tshirt_img"><img src="images/tshirt-img.png"></div>
+                                    <h4 class="shirt_text">Madeira</h4>
+                                    <p class="price_text">Preço  <span style="color: #262626;">5€</span></p>
+                                    <div class="tshirt_img"><img src="images/materiais/madeira"></div>
                                     <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
+                                        <div class="buy_bt"><a href="#">Adicionar ao Carrinho</a></div>
+                                        <div class="seemore_bt"><a href="#">Detalhes</a></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-sm-4">
                                 <div class="box_main">
-                                    <h4 class="shirt_text">Man -shirt</h4>
-                                    <p class="price_text">Price  <span style="color: #262626;">$ 30</span></p>
-                                    <div class="tshirt_img"><img src="images/dress-shirt-img.png"></div>
+                                    <h4 class="shirt_text">Cimento</h4>
+                                    <p class="price_text">Preço  <span style="color: #262626;">5€</span></p>
+                                    <div class="tshirt_img"><img src="images/materiais/cimento"></div>
                                     <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
+                                        <div class="buy_bt"><a href="#">Adicionar ao Carrinho</a></div>
+                                        <div class="seemore_bt"><a href="#">Detalhes</a></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-sm-4">
                                 <div class="box_main">
-                                    <h4 class="shirt_text">Woman Scart</h4>
-                                    <p class="price_text">Price  <span style="color: #262626;">$ 30</span></p>
-                                    <div class="tshirt_img"><img src="images/women-clothes-img.png"></div>
+                                    <h4 class="shirt_text">Tijolo</h4>
+                                    <p class="price_text">Preço  <span style="color: #262626;">2€</span></p>
+                                    <div class="tshirt_img"><img src="images/materiais/tijolo"></div>
                                     <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
+                                        <div class="buy_bt"><a href="#">Adionar ao Carrinho</a></div>
+                                        <div class="seemore_bt"><a href="#">Detalhes</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -226,39 +197,39 @@ $this->title = 'CRM';
             </div>
             <div class="carousel-item">
                 <div class="container">
-                    <h1 class="fashion_taital">Man & Woman Fashion</h1>
+                    <h1 class="fashion_taital">Brita</h1>
                     <div class="fashion_section_2">
                         <div class="row">
                             <div class="col-lg-4 col-sm-4">
                                 <div class="box_main">
-                                    <h4 class="shirt_text">Man T -shirt</h4>
-                                    <p class="price_text">Price  <span style="color: #262626;">$ 30</span></p>
-                                    <div class="tshirt_img"><img src="images/tshirt-img.png"></div>
+                                    <h4 class="shirt_text">Brita Nº1</h4>
+                                    <p class="price_text">Preço  <span style="color: #262626;">5€</span></p>
+                                    <div class="tshirt_img"><img src="images/materiais/brita-01"></div>
                                     <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
+                                        <div class="buy_bt"><a href="#">Adicionar ao Carrinho</a></div>
+                                        <div class="seemore_bt"><a href="#">Detalhes</a></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-sm-4">
                                 <div class="box_main">
-                                    <h4 class="shirt_text">Man -shirt</h4>
-                                    <p class="price_text">Price  <span style="color: #262626;">$ 30</span></p>
-                                    <div class="tshirt_img"><img src="images/dress-shirt-img.png"></div>
+                                    <h4 class="shirt_text">Brita Nº2</h4>
+                                    <p class="price_text">Preço  <span style="color: #262626;">5€</span></p>
+                                    <div class="tshirt_img"><img src="images/materiais/brita-02"></div>
                                     <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
+                                        <div class="buy_bt"><a href="#">Adicionar ao Carrinho</a></div>
+                                        <div class="seemore_bt"><a href="#">Detalhes</a></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-sm-4">
                                 <div class="box_main">
-                                    <h4 class="shirt_text">Woman Scart</h4>
-                                    <p class="price_text">Price  <span style="color: #262626;">$ 30</span></p>
-                                    <div class="tshirt_img"><img src="images/women-clothes-img.png"></div>
+                                    <h4 class="shirt_text">Brita Nº3</h4>
+                                    <p class="price_text">Preço  <span style="color: #262626;">2€</span></p>
+                                    <div class="tshirt_img"><img src="images/materiais/brita-03"></div>
                                     <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
+                                        <div class="buy_bt"><a href="#">Adionar ao Carrinho</a></div>
+                                        <div class="seemore_bt"><a href="#">Detalhes</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -268,39 +239,39 @@ $this->title = 'CRM';
             </div>
             <div class="carousel-item">
                 <div class="container">
-                    <h1 class="fashion_taital">Man & Woman Fashion</h1>
+                    <h1 class="fashion_taital">Tijolos</h1>
                     <div class="fashion_section_2">
                         <div class="row">
                             <div class="col-lg-4 col-sm-4">
                                 <div class="box_main">
-                                    <h4 class="shirt_text">Man T -shirt</h4>
-                                    <p class="price_text">Price  <span style="color: #262626;">$ 30</span></p>
-                                    <div class="tshirt_img"><img src="images/tshirt-img.png"></div>
+                                    <h4 class="shirt_text">Tijolo 04</h4>
+                                    <p class="price_text">Preço <span style="color: #262626;">$ 30</span></p>
+                                    <div class="tshirt_img"><img src="images/materiais/tijolo-04"></div>
                                     <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
+                                        <div class="buy_bt"><a href="#">Adicionar ao Carrinho</a></div>
+                                        <div class="seemore_bt"><a href="#">Detalhes</a></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-sm-4">
                                 <div class="box_main">
-                                    <h4 class="shirt_text">Man -shirt</h4>
-                                    <p class="price_text">Price  <span style="color: #262626;">$ 30</span></p>
-                                    <div class="tshirt_img"><img src="images/dress-shirt-img.png"></div>
+                                    <h4 class="shirt_text">Tijolo 07</h4>
+                                    <p class="price_text">Preço <span style="color: #262626;">$ 30</span></p>
+                                    <div class="tshirt_img"><img src="images/materiais/tijolo-07"></div>
                                     <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
+                                        <div class="buy_bt"><a href="#">Adicionar ao Carrinho</a></div>
+                                        <div class="seemore_bt"><a href="#">Detalhes</a></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-sm-4">
                                 <div class="box_main">
-                                    <h4 class="shirt_text">Woman Scart</h4>
-                                    <p class="price_text">Price  <span style="color: #262626;">$ 30</span></p>
-                                    <div class="tshirt_img"><img src="images/women-clothes-img.png"></div>
+                                    <h4 class="shirt_text">Tijolo 11</h4>
+                                    <p class="price_text">Preço <span style="color: #262626;">$ 30</span></p>
+                                    <div class="tshirt_img"><img src="images/materiais/tijolo-11"></div>
                                     <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
+                                        <div class="buy_bt"><a href="#">Adicionar ao Carrinho</a></div>
+                                        <div class="seemore_bt"><a href="#">Detalhes</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -319,144 +290,7 @@ $this->title = 'CRM';
 </div>
 <!-- fashion section end -->
 <!-- electronic section start -->
-<div class="fashion_section">
-    <div id="electronic_main_slider" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="container">
-                    <h1 class="fashion_taital">Electronic</h1>
-                    <div class="fashion_section_2">
-                        <div class="row">
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Laptop</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="electronic_img"><img src="images/laptop-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Mobile</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="electronic_img"><img src="images/mobile-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Computers</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="electronic_img"><img src="images/computer-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="container">
-                    <h1 class="fashion_taital">Electronic</h1>
-                    <div class="fashion_section_2">
-                        <div class="row">
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Laptop</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="electronic_img"><img src="images/laptop-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Mobile</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="electronic_img"><img src="images/mobile-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Computers</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="electronic_img"><img src="images/computer-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="container">
-                    <h1 class="fashion_taital">Electronic</h1>
-                    <div class="fashion_section_2">
-                        <div class="row">
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Laptop</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="electronic_img"><img src="images/laptop-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Mobile</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="electronic_img"><img src="images/mobile-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Computers</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="electronic_img"><img src="images/computer-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <a class="carousel-control-prev" href="#electronic_main_slider" role="button" data-slide="prev">
-            <i class="fa fa-angle-left"></i>
-        </a>
-        <a class="carousel-control-next" href="#electronic_main_slider" role="button" data-slide="next">
-            <i class="fa fa-angle-right"></i>
-        </a>
-    </div>
-</div>
+
 <!-- electronic section end -->
 <!-- jewellery  section start -->
 <div class="jewellery_section">
@@ -464,39 +298,39 @@ $this->title = 'CRM';
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <div class="container">
-                    <h1 class="fashion_taital">Jewellery Accessories</h1>
+                    <h1 class="fashion_taital">Blocos de Cimento</h1>
                     <div class="fashion_section_2">
                         <div class="row">
                             <div class="col-lg-4 col-sm-4">
                                 <div class="box_main">
-                                    <h4 class="shirt_text">Jumkas</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="jewellery_img"><img src="images/jhumka-img.png"></div>
+                                    <h4 class="shirt_text">Bloco de 7</h4>
+                                    <p class="price_text">Preço  <span style="color: #262626;">$ 100</span></p>
+                                    <div class="jewellery_img"><img src="images/materiais/bloco-07"></div>
                                     <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
+                                        <div class="buy_bt"><a href="#">Adicionar ao Carrinho</a></div>
+                                        <div class="seemore_bt"><a href="#">Detalhes</a></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-sm-4">
                                 <div class="box_main">
-                                    <h4 class="shirt_text">Necklaces</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="jewellery_img"><img src="images/neklesh-img.png"></div>
+                                    <h4 class="shirt_text">Bloco de 10</h4>
+                                    <p class="price_text">Preço  <span style="color: #262626;">$ 100</span></p>
+                                    <div class="jewellery_img"><img src="images/materiais/bloco-10"></div>
                                     <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
+                                        <div class="buy_bt"><a href="#">Adicionar ao Carrinho</a></div>
+                                        <div class="seemore_bt"><a href="#">Detalhes</a></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-sm-4">
                                 <div class="box_main">
-                                    <h4 class="shirt_text">Kangans</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="jewellery_img"><img src="images/kangan-img.png"></div>
+                                    <h4 class="shirt_text">Bloco de 15</h4>
+                                    <p class="price_text">Preço  <span style="color: #262626;">$ 100</span></p>
+                                    <div class="jewellery_img"><img src="images/materiais/bloco-15"></div>
                                     <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
+                                        <div class="buy_bt"><a href="#">Adicionar ao Carrinho</a></div>
+                                        <div class="seemore_bt"><a href="#">Detalhes</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -506,39 +340,38 @@ $this->title = 'CRM';
             </div>
             <div class="carousel-item">
                 <div class="container">
-                    <h1 class="fashion_taital">Jewellery Accessories</h1>
+                    <h1 class="fashion_taital">Sanitaria</h1>
                     <div class="fashion_section_2">
                         <div class="row">
                             <div class="col-lg-4 col-sm-4">
                                 <div class="box_main">
-                                    <h4 class="shirt_text">Jumkas</h4>
+                                    <h4 class="shirt_text">Tubos PVC</h4>
                                     <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="jewellery_img"><img src="images/jhumka-img.png"></div>
+                                    <div class="jewellery_img"><img src="images/materiais/tubos-pvc"></div>
                                     <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
+                                        <div class="buy_bt"><a href="#">Adicionar ao Carrinho</a></div>
+                                        <div class="seemore_bt"><a href="#">Detalhes</a></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-sm-4">
                                 <div class="box_main">
-                                    <h4 class="shirt_text">Necklaces</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="jewellery_img"><img src="images/neklesh-img.png"></div>
+                                    <h4 class="shirt_text">Curvas PVC</h4>
+                                    <p class="price_text">Preço  <span style="color: #262626;">$ 100</span></p>
+                                    <div class="jewellery_img"><img src="images/materiais/curvas-pvc"></div>
                                     <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
+                                        <div class="buy_bt"><a href="#">Adicionar ao Carrinho</a></div>
+                                        <div class="seemore_bt"><a href="#">Detalhes</a></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-sm-4">
                                 <div class="box_main">
-                                    <h4 class="shirt_text">Kangans</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="jewellery_img"><img src="images/kangan-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
+                                    <h4 class="shirt_text">Tubo de Esgoto</h4>
+                                    <p class="price_text">Preço  <span style="color: #262626;">$ 100</span></p>
+                                    <div class="jewellery_img"><img src="images/materiais/tubo-esgoto>"</div>
+                                        <div class="buy_bt"><a href="#">Adicionar ao Carrinho</a></div>
+                                        <div class="seemore_bt"><a href="#">Detalhes</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -548,39 +381,39 @@ $this->title = 'CRM';
             </div>
             <div class="carousel-item">
                 <div class="container">
-                    <h1 class="fashion_taital">Jewellery Accessories</h1>
+                    <h1 class="fashion_taital">Telhas</h1>
                     <div class="fashion_section_2">
                         <div class="row">
                             <div class="col-lg-4 col-sm-4">
                                 <div class="box_main">
-                                    <h4 class="shirt_text">Jumkas</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="jewellery_img"><img src="images/jhumka-img.png"></div>
+                                    <h4 class="shirt_text">Telha F</h4>
+                                    <p class="price_text">Preço  <span style="color: #262626;">$ 100</span></p>
+                                    <div class="jewellery_img"><img src="images/materiais/telha-f"></div>
                                     <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
+                                        <div class="buy_bt"><a href="#">Adicionar ao Carrinho</a></div>
+                                        <div class="seemore_bt"><a href="#">Detalhes</a></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-sm-4">
                                 <div class="box_main">
-                                    <h4 class="shirt_text">Necklaces</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="jewellery_img"><img src="images/neklesh-img.png"></div>
+                                    <h4 class="shirt_text">Telha F2</h4>
+                                    <p class="price_text">Preço  <span style="color: #262626;">$ 100</span></p>
+                                    <div class="jewellery_img"><img src="images/materiais/telha-f2"></div>
                                     <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
+                                        <div class="buy_bt"><a href="#">Adicionar ao Carrinho</a></div>
+                                        <div class="seemore_bt"><a href="#">Detalhes</a></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-sm-4">
                                 <div class="box_main">
-                                    <h4 class="shirt_text">Kangans</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="jewellery_img"><img src="images/kangan-img.png"></div>
+                                    <h4 class="shirt_text">Telha Marselha</h4>
+                                    <p class="price_text">Preço  <span style="color: #262626;">$ 100</span></p>
+                                    <div class="jewellery_img"><img src="images/materiais/telha-marselha"></div>
                                     <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
+                                        <div class="buy_bt"><a href="#">Adicionar ao Carrinho</a></div>
+                                        <div class="seemore_bt"><a href="#">Detalhes</a></div>
                                     </div>
                                 </div>
                             </div>
