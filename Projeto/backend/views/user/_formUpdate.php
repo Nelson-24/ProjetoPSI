@@ -1,6 +1,5 @@
 <?php
 
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -15,17 +14,13 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'username')->textInput() ?>
-    <?= $form->field($model, 'password')->passwordInput() ?>
     <?= $form->field($model, 'email')->textInput() ?>
-
-
-
+    <?= $form->field($model, 'novaSenha')->passwordInput() ?>
 
     <?= $form->field($model->profile, 'nome')->textInput() ?>
     <?= $form->field($model->profile, 'nif')->textInput() ?>
     <?= $form->field($model->profile, 'morada')->textInput() ?>
     <?= $form->field($model->profile, 'contacto')->textInput() ?>
-
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

@@ -29,6 +29,18 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
+    public $novaSenha;
+    public $newPassword;
+
+    public function getProfile()
+    {
+        return $this->hasOne(Profile::class, ['user_id' => 'id']);
+    }
+
+    /**
+     * @var mixed|null
+     */
+
 
 
 
@@ -77,6 +89,10 @@ class User extends ActiveRecord implements IdentityInterface
             [['username'], 'unique'],
             [['email'], 'unique'],
             [['password_reset_token'], 'unique'],
+
+            [['newPassword'], 'string', 'min' => 8],
+            [['password'], 'safe']
+
         ];
     }
 
@@ -200,6 +216,14 @@ class User extends ActiveRecord implements IdentityInterface
     public function setPassword($password)
     {
         $this->password_hash = Yii::$app->security->generatePasswordHash($password);
+
+
+
+
+    }
+
+   public function getPassword(){
+        return '';
 
     }
    /* public function beforeSave($insert)

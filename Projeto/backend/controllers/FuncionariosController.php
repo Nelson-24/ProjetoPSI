@@ -14,9 +14,9 @@ use Yii;
 use yii\db\Query;
 
 /**
- * UserController implements the CRUD actions for User model.
+ * FuncionariosController implements the CRUD actions for User model.
  */
-class UserController extends Controller
+class FuncionariosController extends Controller
 {
     /**
      * @inheritDoc
@@ -46,10 +46,10 @@ class UserController extends Controller
 
         $auth = Yii::$app->authManager;
 
-        $clienteRole =$auth->getUserIdsByRole('cliente');
+        $funcRole =$auth->getUserIdsByRole('funcionario');
 
         $provider = new ActiveDataProvider([
-            'query' => User::find()->where(['id'=>$clienteRole]),
+            'query' => User::find()->where(['id'=>$funcRole]),
             'pagination' => [
                 'pageSize' => 10,
             ],
@@ -62,25 +62,22 @@ class UserController extends Controller
         //var_dump($query);
         //die();
 
+        /*
+        'pagination' => [
+            'pageSize' => 50
+        ],
+        'sort' => [
+            'defaultOrder' => [
+                'id' => SORT_DESC,
+            ]
+        ],
 
-            /*
-            'pagination' => [
-                'pageSize' => 50
-            ],
-            'sort' => [
-                'defaultOrder' => [
-                    'id' => SORT_DESC,
-                ]
-            ],
-
-
-        ]);*/
+    ]);*/
 
         return $this->render('index', [
             'dataProvider' => $provider,
         ]);
     }
-
 
     /**
      * Displays a single User model.
@@ -102,17 +99,21 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
-        $model = new SignupForm(); // Use o SignupForm em vez de User diretamente
+        $model = new User();
 
-        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-
-            return $this->redirect(['index']);
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+        } else {
+            $model->loadDefaultValues();
         }
 
         return $this->render('create', [
             'model' => $model,
         ]);
     }
+
     /**
      * Updates an existing User model.
      * If update is successful, the browser will be redirected to the 'view' page.
