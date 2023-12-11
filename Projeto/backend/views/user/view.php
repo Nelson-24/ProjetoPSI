@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 use common\models\Profile;
 
+
 /** @var yii\web\View $this */
 /** @var common\models\User $model */
 
@@ -30,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
+
               'id',
             'username',
             'email:email',
@@ -54,6 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => $model->profile !== null ? $model->profile->contacto : 'N/A',
             ],
         ]
+
     ]) ?>
 
 </div>

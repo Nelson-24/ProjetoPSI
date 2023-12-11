@@ -9,7 +9,9 @@ use yii\grid\GridView;
 /** @var yii\web\View $this */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
+
 $this->title = 'Clientes';
+
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
@@ -17,6 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
             <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
+
     </p>
 
 
@@ -27,10 +30,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'username',
+
             //'auth_key',
             //'password_hash',
            // 'password_reset_token',
             'email:email',
+
             //'status',
             //'created_at',
             //'updated_at',

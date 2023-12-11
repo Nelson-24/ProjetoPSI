@@ -62,6 +62,7 @@ class UserController extends Controller
         //var_dump($query);
         //die();
 
+
             /*
             'pagination' => [
                 'pageSize' => 50
@@ -72,13 +73,13 @@ class UserController extends Controller
                 ]
             ],
 
+
         ]);*/
 
         return $this->render('index', [
             'dataProvider' => $provider,
         ]);
     }
-
 
 
     /**
@@ -131,6 +132,7 @@ class UserController extends Controller
             'model' => $model,
         ]);
     }
+
     /**
      * Deletes an existing User model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

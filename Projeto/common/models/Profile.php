@@ -21,12 +21,14 @@ class Profile extends \yii\db\ActiveRecord
 {
     /**
      * @var int|mixed|null
+
      *
      */
     public function getUser()
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
+
 
 
     /**

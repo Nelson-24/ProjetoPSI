@@ -127,6 +127,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+
     "last_opened_file_path": "C:/wamp64/www/ProjetoPSI",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -161,6 +162,7 @@
       <workItem from="1700825272050" duration="4083000" />
       <workItem from="1701087577847" duration="1237000" />
       <workItem from="1701089910043" duration="22000" />
+
     </task>
     <servers />
   </component>
