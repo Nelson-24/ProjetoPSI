@@ -2,18 +2,21 @@
 
 namespace backend\controllers;
 
-use common\models\Artigos;
-use common\models\Categoria;
+use common\models\User;
+use common\models\Profile;
+use backend\models\SignupForm;
 use yii\data\ActiveDataProvider;
-use yii\helpers\ArrayHelper;
+use yii\rbac\Assignment;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use Yii;
+use yii\db\Query;
 
 /**
- * ArtigosController implements the CRUD actions for Artigos model.
+ * FuncionariosController implements the CRUD actions for User model.
  */
-class ArtigosController extends Controller
+class FuncionariosController extends Controller
 {
     /**
      * @inheritDoc
@@ -34,34 +37,51 @@ class ArtigosController extends Controller
     }
 
     /**
-     * Lists all Artigos models.
+     * Lists all User models.
      *
      * @return string
      */
-    public function actionIndex()
-    {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Artigos::find(),
-            /*
+    public function actionIndex(){
+
+
+        $auth = Yii::$app->authManager;
+
+        $funcRole =$auth->getUserIdsByRole('funcionario');
+
+        $provider = new ActiveDataProvider([
+            'query' => User::find()->where(['id'=>$funcRole]),
             'pagination' => [
-                'pageSize' => 50
+                'pageSize' => 10,
             ],
             'sort' => [
                 'defaultOrder' => [
                     'id' => SORT_DESC,
                 ]
             ],
-            */
         ]);
+        //var_dump($query);
+        //die();
+
+        /*
+        'pagination' => [
+            'pageSize' => 50
+        ],
+        'sort' => [
+            'defaultOrder' => [
+                'id' => SORT_DESC,
+            ]
+        ],
+
+    ]);*/
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
+            'dataProvider' => $provider,
         ]);
     }
 
     /**
-     * Displays a single Artigos model.
-     * @param int $id ID
+     * Displays a single User model.
+     * @param int $id
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -73,31 +93,31 @@ class ArtigosController extends Controller
     }
 
     /**
-     * Creates a new Artigos model.
+     * Creates a new User model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Artigos();
+        $model = new User();
 
-        // Obtém todas as categorias
-        $categoria = Categoria::find()->all();
-
-        if ($model->load(\Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+        } else {
+            $model->loadDefaultValues();
         }
 
         return $this->render('create', [
             'model' => $model,
-            'categoria' => $categoria,
         ]);
     }
 
     /**
-     * Updates an existing Artigos model.
+     * Updates an existing User model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id ID
+     * @param int $id
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -115,9 +135,9 @@ class ArtigosController extends Controller
     }
 
     /**
-     * Deletes an existing Artigos model.
+     * Deletes an existing User model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id ID
+     * @param int $id
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -129,15 +149,15 @@ class ArtigosController extends Controller
     }
 
     /**
-     * Finds the Artigos model based on its primary key value.
+     * Finds the User model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id ID
-     * @return Artigos the loaded model
+     * @param int $id
+     * @return User the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Artigos::findOne(['id' => $id])) !== null) {
+        if (($model = User::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

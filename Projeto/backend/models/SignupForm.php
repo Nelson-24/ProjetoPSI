@@ -20,6 +20,7 @@ class SignupForm extends Model
     public $nif;
     public $morada;
     public $contacto;
+    public $id;
 
 
     /**
@@ -55,6 +56,13 @@ class SignupForm extends Model
      *
      * @return User whether the creating new account was successful and email was sent
      */
+
+
+
+
+
+
+
    public function signup()
     {
         if ($this->validate()) {
@@ -67,7 +75,7 @@ class SignupForm extends Model
             $user->save(false);
 
             $profile = new Profile();
-            $profile->user_id = $user->getId();
+            $profile->user_id = $user->id;
             $profile->nome = $this->nome;
             $profile->nif = $this->nif;
             $profile->morada = $this->morada;
@@ -84,39 +92,12 @@ class SignupForm extends Model
 
             return $user;
 
+
         }
 
         return null;
     }
 }
-  /*  public function signup()
-    {
-        if ($this->validate()) {
-            $user = new User();
-            $user->username = $this->username;
-            $user->email = $this->email;
-            $user->setPassword($this->password);
-            $user->generateAuthKey();
-
-            if ($user->save(false)) {
-                // O usuário foi salvo com sucesso
-                $profile = new Profile();
-                $profile->user_id = $user->getId(); // Estabelece a relação com o ID do usuário
-                $profile->nome = $this->nome;
-                $profile->nif = $this->nif;
-                $profile->morada = $this->morada;
-                $profile->contacto = $this->contacto;
-
-                if ($profile->save(false)) {
-                    // O perfil foi salvo com sucesso
-                    return $user;
-
-
-                }
-            }
-            return null;
-        }
-    }*/
 
 
 

@@ -2,18 +2,16 @@
 
 namespace backend\controllers;
 
-use common\models\Artigos;
-use common\models\Categoria;
+use backend\models\Faturas;
 use yii\data\ActiveDataProvider;
-use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ArtigosController implements the CRUD actions for Artigos model.
+ * FaturasController implements the CRUD actions for Faturas model.
  */
-class ArtigosController extends Controller
+class FaturasController extends Controller
 {
     /**
      * @inheritDoc
@@ -34,14 +32,14 @@ class ArtigosController extends Controller
     }
 
     /**
-     * Lists all Artigos models.
+     * Lists all Faturas models.
      *
      * @return string
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Artigos::find(),
+            'query' => Faturas::find(),
             /*
             'pagination' => [
                 'pageSize' => 50
@@ -60,7 +58,7 @@ class ArtigosController extends Controller
     }
 
     /**
-     * Displays a single Artigos model.
+     * Displays a single Faturas model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -73,29 +71,29 @@ class ArtigosController extends Controller
     }
 
     /**
-     * Creates a new Artigos model.
+     * Creates a new Faturas model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Artigos();
+        $model = new Faturas();
 
-        // Obtém todas as categorias
-        $categoria = Categoria::find()->all();
-
-        if ($model->load(\Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+        } else {
+            $model->loadDefaultValues();
         }
 
         return $this->render('create', [
             'model' => $model,
-            'categoria' => $categoria,
         ]);
     }
 
     /**
-     * Updates an existing Artigos model.
+     * Updates an existing Faturas model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -115,7 +113,7 @@ class ArtigosController extends Controller
     }
 
     /**
-     * Deletes an existing Artigos model.
+     * Deletes an existing Faturas model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -129,15 +127,15 @@ class ArtigosController extends Controller
     }
 
     /**
-     * Finds the Artigos model based on its primary key value.
+     * Finds the Faturas model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Artigos the loaded model
+     * @return Faturas the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Artigos::findOne(['id' => $id])) !== null) {
+        if (($model = Faturas::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

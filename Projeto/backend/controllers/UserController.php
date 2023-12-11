@@ -6,10 +6,12 @@ use common\models\User;
 use common\models\Profile;
 use backend\models\SignupForm;
 use yii\data\ActiveDataProvider;
+use yii\rbac\Assignment;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use Yii;
+use yii\db\Query;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -39,10 +41,27 @@ class UserController extends Controller
      *
      * @return string
      */
-    public function actionIndex()
-    {
-        $dataProvider = new ActiveDataProvider([
-            'query' => User::find(),
+    public function actionIndex(){
+
+
+        $auth = Yii::$app->authManager;
+
+        $clienteRole =$auth->getUserIdsByRole('cliente');
+
+        $provider = new ActiveDataProvider([
+            'query' => User::find()->where(['id'=>$clienteRole]),
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'id' => SORT_DESC,
+                ]
+            ],
+        ]);
+        //var_dump($query);
+        //die();
+
             /*
             'pagination' => [
                 'pageSize' => 50
@@ -52,13 +71,15 @@ class UserController extends Controller
                     'id' => SORT_DESC,
                 ]
             ],
-            */
-        ]);
+
+        ]);*/
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
+            'dataProvider' => $provider,
         ]);
     }
+
+
 
     /**
      * Displays a single User model.
@@ -83,7 +104,7 @@ class UserController extends Controller
         $model = new SignupForm(); // Use o SignupForm em vez de User diretamente
 
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
-            // Cadastro bem-sucedido, redirecionar ou exibir mensagem de sucesso
+
             return $this->redirect(['index']);
         }
 
@@ -110,7 +131,6 @@ class UserController extends Controller
             'model' => $model,
         ]);
     }
-
     /**
      * Deletes an existing User model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

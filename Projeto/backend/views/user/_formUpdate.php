@@ -1,12 +1,10 @@
 <?php
 
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
 /** @var common\models\User $model */
-
 
 /** @var yii\widgets\ActiveForm $form */
 
@@ -16,10 +14,8 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'username')->textInput() ?>
-    <?= $form->field($model, 'password')->passwordInput() ?>
     <?= $form->field($model, 'email')->textInput() ?>
-
-
+    <?= $form->field($model, 'novaSenha')->passwordInput() ?>
 
     <?= $form->field($model->profile, 'nome')->textInput() ?>
     <?= $form->field($model->profile, 'nif')->textInput() ?>

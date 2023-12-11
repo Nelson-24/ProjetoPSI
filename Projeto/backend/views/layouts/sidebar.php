@@ -71,13 +71,29 @@
                     ['label' => 'LABELS', 'header' => true],
 
                     [
-                        'label' => 'Users',
+                        'label' => 'Clientes',
                         'url' => ['user/index'],
 
                         'iconStyle' => 'far', 'iconClassAdded' => 'text-danger'
                     ],
-                    ['label' => 'Warning', 'iconClass' => 'nav-icon far fa-circle text-warning'],
-                    ['label' => 'Informational', 'iconStyle' => 'far', 'iconClassAdded' => 'text-info'],
+                    ['label' => 'Artigos', 'iconClass' => 'nav-icon far fa-circle text-warning',
+                        'url' => ['artigos/index'],
+                    ],
+                    ['label' => 'Categorias', 'iconStyle' => 'far', 'iconClassAdded' => 'text-info',
+                        'url' => ['categoria/index'],
+                    ],
+                    ['label' => 'Fornecedores', 'iconStyle' => 'far', 'iconClassAdded' => 'text-info',
+                        'url' => ['fornecedores/index'],
+                    ],
+
+                    ['label' => 'Faturas', 'iconStyle' => 'far', 'iconClassAdded' => 'text-info',
+                        'url' => ['faturas/index'],
+                    ],
+                    ['label' => 'Funcionarios', 'iconStyle' => 'far', 'iconClassAdded' => 'text-info',
+                        'url' => ['funcionarios/index'],
+                    ],
+
+
                 ],
             ]);
             ?>

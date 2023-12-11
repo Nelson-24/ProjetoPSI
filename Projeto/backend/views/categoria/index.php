@@ -1,6 +1,6 @@
 <?php
 
-use common\models\Artigos;
+use common\models\Categoria;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -9,15 +9,15 @@ use yii\grid\GridView;
 /** @var yii\web\View $this */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Artigos';
+$this->title = 'Categorias';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="artigos-index">
+<div class="categoria-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Artigos', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Categoria', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
 
@@ -27,21 +27,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'referencia',
             'descricao',
-            'preco',
-            'stock',
-            'categoria_id',
             [
-                    'attribute' => 'categoria_id',
-            'value' => function ($model) {
-                return $model->categoria->descricao ; // Supondo que 'nome' é o atributo da Categoria que deseja exibir
-            },
-            ],
-            [
-
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Artigos $model, $key, $index, $column) {
+                'urlCreator' => function ($action, Categoria $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }
             ],
