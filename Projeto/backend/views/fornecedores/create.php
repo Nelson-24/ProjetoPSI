@@ -3,10 +3,10 @@
 use yii\helpers\Html;
 
 /** @var yii\web\View $this */
-/** @var backend\models\Fornecedores $model */
+/** @var backend\models\Fornecedor $model */
 
-$this->title = 'Create Fornecedores';
-$this->params['breadcrumbs'][] = ['label' => 'Fornecedores', 'url' => ['index']];
+$this->title = 'Create Fornecedor';
+$this->params['breadcrumbs'][] = ['label' => 'Fornecedor', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="fornecedores-create">

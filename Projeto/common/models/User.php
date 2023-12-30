@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use backend\models\Fatura;
 use Yii;
 use yii\base\Exception;
 use yii\base\NotSupportedException;
@@ -35,6 +36,11 @@ class User extends ActiveRecord implements IdentityInterface
     public function getProfile()
     {
         return $this->hasOne(Profile::class, ['user_id' => 'id']);
+    }
+
+    public function getFatura()
+    {
+        return $this->hasOne(Fatura::class, ['user_id' => 'id']);
     }
 
     /**

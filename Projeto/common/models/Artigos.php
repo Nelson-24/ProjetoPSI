@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use backend\models\LinhaFatura;
 use Yii;
 
 /**
@@ -16,7 +17,7 @@ use Yii;
  *
  * @property Categoria $categoria
  * @property Linhascarrinhocompras[] $linhascarrinhocompras
- * @property Linhasfaturas[] $linhasfaturas
+ * @property LinhaFatura[] $linhasfaturas
  * @property Linhasfaturasfornecedores[] $linhasfaturasfornecedores
  */
 class Artigos extends \yii\db\ActiveRecord

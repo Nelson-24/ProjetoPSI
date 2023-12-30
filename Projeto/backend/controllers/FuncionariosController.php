@@ -3,15 +3,13 @@
 namespace backend\controllers;
 
 use common\models\User;
-use common\models\Profile;
-use backend\models\SignupForm;
+use app\models\_search;
+use Yii;
 use yii\data\ActiveDataProvider;
-use yii\rbac\Assignment;
+use yii\debug\models\timeline\Search;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use Yii;
-use yii\db\Query;
 
 /**
  * FuncionariosController implements the CRUD actions for User model.
@@ -41,43 +39,23 @@ class FuncionariosController extends Controller
      *
      * @return string
      */
+
     public function actionIndex(){
 
 
-        $auth = Yii::$app->authManager;
+        $searchModel = new _search();
 
-        $funcRole =$auth->getUserIdsByRole('funcionario');
-
-        $provider = new ActiveDataProvider([
-            'query' => User::find()->where(['id'=>$funcRole]),
-            'pagination' => [
-                'pageSize' => 10,
-            ],
-            'sort' => [
-                'defaultOrder' => [
-                    'id' => SORT_DESC,
-                ]
-            ],
-        ]);
-        //var_dump($query);
-        //die();
-
-        /*
-        'pagination' => [
-            'pageSize' => 50
-        ],
-        'sort' => [
-            'defaultOrder' => [
-                'id' => SORT_DESC,
-            ]
-        ],
-
-    ]);*/
+        $provider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'dataProvider' => $provider,
+            'searchModel' =>$searchModel,
+
+
         ]);
     }
+
+
 
     /**
      * Displays a single User model.

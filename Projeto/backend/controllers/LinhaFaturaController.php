@@ -2,16 +2,18 @@
 
 namespace backend\controllers;
 
-use backend\models\Fornecedor;
+use backend\models\Fatura;
+use backend\models\LinhaFatura;
+use common\models\Artigos;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * FornecedoresController implements the CRUD actions for Fornecedor model.
+ * LinhaFaturaController implements the CRUD actions for LinhaFatura model.
  */
-class FornecedoresController extends Controller
+class LinhaFaturaController extends Controller
 {
     /**
      * @inheritDoc
@@ -32,14 +34,14 @@ class FornecedoresController extends Controller
     }
 
     /**
-     * Lists all Fornecedor models.
+     * Lists all LinhaFatura models.
      *
      * @return string
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Fornecedor::find(),
+            'query' => LinhaFatura::find(),
             /*
             'pagination' => [
                 'pageSize' => 50
@@ -58,7 +60,7 @@ class FornecedoresController extends Controller
     }
 
     /**
-     * Displays a single Fornecedor model.
+     * Displays a single LinhaFatura model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -71,13 +73,13 @@ class FornecedoresController extends Controller
     }
 
     /**
-     * Creates a new Fornecedor model.
+     * Creates a new LinhaFatura model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
+   /*  ESTE É O QUE VEIO COM O CONTROLER     public function actionCreate()
     {
-        $model = new Fornecedor();
+        $model = new LinhaFatura();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -91,9 +93,79 @@ class FornecedoresController extends Controller
             'model' => $model,
         ]);
     }
+*/
 
-    /**
-     * Updates an existing Fornecedor model.
+ /* este é o novo   public function actionCreate($artigos_id)
+    {
+
+
+
+        $artigo = Artigos::findOne($artigos_id);
+
+        if ($artigo) {
+            $model = new LinhaFatura();
+            $model->artigos_id = $artigo->id;
+            $model ->referencia = $artigo->referencia;
+            $model->valor = $artigo->preco;
+            $model->faturas_id = $model->getFaturas();
+
+            return $this->render('create', [
+                'model' => $model,
+                'artigo' => $artigo,
+
+            ]);
+        }
+    }*/
+    public function actionCreate($artigos_id)
+    {
+        $artigo = Artigos::findOne($artigos_id);
+        $faturas = Fatura::find()->orderBy(['id' => SORT_DESC])->one();
+
+
+        if ($artigo && $faturas) {
+            $model = new LinhaFatura();
+            $model->artigos_id = $artigo->id;
+            $model->valor = $artigo->preco;
+            $model->faturas_id = $faturas->id;
+            $model->referencia = $artigo->referencia;
+
+            if ($model->load(\Yii::$app->request->post()) && $model->save()) {
+
+
+
+                return $this->redirect(['faturas/update', 'id' => $faturas->id]);
+            }
+
+            return $this->render('create', [
+                'model' => $model,
+                'artigo' => $artigo,
+
+
+
+            ]);
+        }
+    }
+
+    public function actionSelecionarArtigos()
+    {
+        $dataProvider = new ActiveDataProvider([
+            'query' => Artigos::find(),
+        ]);
+
+        $faturas = Fatura::find()->all();
+
+        return $this->render('selecionar_artigos', [
+            'dataProvider' => $dataProvider,
+            'faturas' => $faturas,
+
+        ]);
+    }
+
+
+
+
+    /*
+     * Updates an existing LinhaFatura model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -113,7 +185,7 @@ class FornecedoresController extends Controller
     }
 
     /**
-     * Deletes an existing Fornecedor model.
+     * Deletes an existing LinhaFatura model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -127,15 +199,15 @@ class FornecedoresController extends Controller
     }
 
     /**
-     * Finds the Fornecedor model based on its primary key value.
+     * Finds the LinhaFatura model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Fornecedor the loaded model
+     * @return LinhaFatura the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Fornecedor::findOne(['id' => $id])) !== null) {
+        if (($model = LinhaFatura::findOne(['id' => $id])) !== null) {
             return $model;
         }
 
