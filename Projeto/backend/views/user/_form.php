@@ -7,7 +7,6 @@ use yii\widgets\ActiveForm;
 /** @var yii\web\View $this */
 /** @var common\models\User $model */
 
-
 /** @var yii\widgets\ActiveForm $form */
 
 ?>
@@ -21,10 +20,12 @@ use yii\widgets\ActiveForm;
 
 
 
+
     <?= $form->field($model->profile, 'nome')->textInput() ?>
     <?= $form->field($model->profile, 'nif')->textInput() ?>
     <?= $form->field($model->profile, 'morada')->textInput() ?>
     <?= $form->field($model->profile, 'contacto')->textInput() ?>
+
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

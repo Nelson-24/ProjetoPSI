@@ -71,11 +71,14 @@
                     ['label' => 'LABELS', 'header' => true],
 
                     [
+
                         'label' => 'Clientes',
+
                         'url' => ['user/index'],
 
                         'iconStyle' => 'far', 'iconClassAdded' => 'text-danger'
                     ],
+
                     ['label' => 'Artigos', 'iconClass' => 'nav-icon far fa-circle text-warning',
                         'url' => ['artigos/index'],
                     ],

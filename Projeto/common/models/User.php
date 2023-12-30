@@ -49,6 +49,20 @@ class User extends ActiveRecord implements IdentityInterface
 
 
 
+
+
+
+    public function getProfile()
+{
+    return $this->hasOne(Profile::class, ['user_id' => 'id']);
+}
+
+    /**
+     * @var mixed|null
+     */
+
+
+
     /**
      * {@inheritdoc}
      */
@@ -81,8 +95,10 @@ class User extends ActiveRecord implements IdentityInterface
             [['username'], 'unique'],
             [['email'], 'unique'],
             [['password_reset_token'], 'unique'],
+
             [['newPassword'], 'string', 'min' => 8],
             [['password'], 'safe']
+
         ];
     }
 
@@ -209,10 +225,12 @@ class User extends ActiveRecord implements IdentityInterface
 
 
 
+
     }
 
    public function getPassword(){
         return '';
+
     }
    /* public function beforeSave($insert)
     {

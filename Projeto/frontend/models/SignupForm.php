@@ -2,7 +2,9 @@
 
 namespace frontend\models;
 
+
 use common\models\Profile;
+
 use common\models\User;
 use Yii;
 use yii\base\Model;

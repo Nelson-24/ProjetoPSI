@@ -48,7 +48,10 @@ class UserController extends Controller
 
         $searchModel = new SearchCliente();
 
+
         $provider = $searchModel->search(Yii::$app->request->queryParams);
+
+      
 
         return $this->render('index', [
             'dataProvider' => $provider,
@@ -57,7 +60,6 @@ class UserController extends Controller
 
         ]);
     }
-
 
 
     /**
@@ -110,6 +112,7 @@ class UserController extends Controller
             'model' => $model,
         ]);
     }
+
     /**
      * Deletes an existing User model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
