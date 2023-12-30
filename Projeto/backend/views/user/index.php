@@ -9,6 +9,8 @@ use yii\grid\GridView;
 /** @var yii\web\View $this */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
+/** @var app\models\SearchCliente $searchModel */
+/** @var User $model */
 
 $this->title = 'Clientes';
 
@@ -23,13 +25,21 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
 
-    <?= GridView::widget([
+    <?=
+    GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'username',
+
+            [
+                'attribute' => 'nome',
+                'label' => 'Nome',
+                'value' => 'profile.nome',
+            ],
+            
 
             //'auth_key',
             //'password_hash',

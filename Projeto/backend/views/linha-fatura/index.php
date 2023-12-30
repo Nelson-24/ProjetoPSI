@@ -1,6 +1,6 @@
 <?php
 
-use backend\models\Fornecedor;
+use backend\models\LinhaFatura;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
@@ -9,15 +9,15 @@ use yii\grid\GridView;
 /** @var yii\web\View $this */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Fornecedor';
+$this->title = 'Linha Faturas';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="fornecedores-index">
+<div class="linha-fatura-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Fornecedor', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Linha Fatura', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
 
@@ -27,14 +27,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'designacaoSocial',
-            'email:email',
-            'nif',
-            'morada',
-            //'capitalSocial',
+            'quantidade',
+            'valor',
+            'referencia',
+            'artigos_id',
+            //'faturas_id',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Fornecedor $model, $key, $index, $column) {
+                'urlCreator' => function ($action, LinhaFatura $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }
             ],

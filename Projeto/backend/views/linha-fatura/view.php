@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
-/** @var backend\models\Fatura $model */
+/** @var backend\models\LinhaFatura $model */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Fatura', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Linha Faturas', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="faturas-view">
+<div class="linha-fatura-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -30,12 +30,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'data',
-            'valorTotal',
-            'estado',
-            'opcaoEntrega',
-            'users_id',
-            'ivas_id',
+            'quantidade',
+            'valor',
+            'referencia',
+            'artigos_id',
+            'faturas_id',
         ],
     ]) ?>
 

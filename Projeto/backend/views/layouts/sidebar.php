@@ -85,11 +85,11 @@
                     ['label' => 'Categorias', 'iconStyle' => 'far', 'iconClassAdded' => 'text-info',
                         'url' => ['categoria/index'],
                     ],
-                    ['label' => 'Fornecedores', 'iconStyle' => 'far', 'iconClassAdded' => 'text-info',
+                    ['label' => 'Fornecedor', 'iconStyle' => 'far', 'iconClassAdded' => 'text-info',
                         'url' => ['fornecedores/index'],
                     ],
 
-                    ['label' => 'Faturas', 'iconStyle' => 'far', 'iconClassAdded' => 'text-info',
+                    ['label' => 'Fatura', 'iconStyle' => 'far', 'iconClassAdded' => 'text-info',
                         'url' => ['faturas/index'],
                     ],
                     ['label' => 'Funcionarios', 'iconStyle' => 'far', 'iconClassAdded' => 'text-info',

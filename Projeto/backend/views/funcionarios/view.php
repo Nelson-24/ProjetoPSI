@@ -31,24 +31,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'username',
+            'auth_key',
+            'password_hash',
+            'password_reset_token',
             'email:email',
-            [
-                'label' => 'Nome',
-                'value' => $model->profile !== null ? $model->profile->nome : 'N/A',
-            ],
-            [
-                'label' => 'NIF',
-                'value' => $model->profile !== null ? $model->profile->nif : 'N/A',
-            ],
-            [
-                'label' => 'Morada',
-                'value' => $model->profile !== null ? $model->profile->morada : 'N/A',
-            ],
-            [
-                'label' => 'Contacto',
-                'value' => $model->profile !== null ? $model->profile->contacto : 'N/A',
-            ],
-        ]
+            'status',
+            'created_at',
+            'updated_at',
+            'verification_token',
+        ],
     ]) ?>
 
 </div>

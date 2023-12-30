@@ -76,7 +76,7 @@ class Profile extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Faturas]].
+     * Gets query for [[Fatura]].
      *
      * @return \yii\db\ActiveQuery
      */

@@ -1,18 +1,30 @@
 <?php
 
+use backend\models\Fatura;
+use common\models\User;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
-/** @var backend\models\Faturas $model */
 /** @var yii\widgets\ActiveForm $form */
+/** @var backend\models\Fatura $model */
+/** @var backend\models\LinhaFatura $linhafatura */
+/** @var common\models\User $cliente */
+/** @var common\models\Profile $profile */
+
+
+
+
+
 ?>
 
 
 
 <div class="faturas-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin();
+    ?>
     <div class="content-wrapper">
 
         <section class="content-header">
@@ -34,10 +46,7 @@ use yii\widgets\ActiveForm;
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-                        <div class="callout callout-info">
-                            <h5><i class="fas fa-info"></i> Note:</h5>
-                            This page has been enhanced for printing. Click the print button at the bottom of the invoice to test.
-                        </div>
+
 
                         <div class="invoice p-3 mb-3">
 
@@ -45,7 +54,9 @@ use yii\widgets\ActiveForm;
                                 <div class="col-12">
                                     <h4>
                                         <i class="fas fa-globe"></i> AdminLTE, Inc.
-                                        <small class="float-right">Date: 2/10/2014</small>
+                                        <small class="float-right">Date: <?= date('d/m/Y') ?></small>
+                                       <?= $form->field($model, 'data')->hiddenInput(['value' => date('Y-m-d')])->label(false) ?>
+
                                     </h4>
                                 </div>
 
@@ -66,25 +77,32 @@ use yii\widgets\ActiveForm;
                                 <div class="col-sm-4 invoice-col">
                                     To
                                     <address>
-                                        <strong>Nome:</strong><br>
-                                        Morada<br>
+                                     <?php
+                                        if ($model->user !== null && $model->user->profile !== null) {
 
-                                        Telemovel<br>
-                                        Email: <br>
-                                        <?= Html::a('Selecionar Cliente', ['/cliente/selecionar'], ['class' => 'btn btn-primary']) ?>
+                                        echo '<strong>Nome:</strong> ' . $model->user->profile->nome . '<br>';
+                                        echo '<strong>Morada:</strong> ' . $model->user->profile->morada . '<br>';
+                                            echo '<strong>Contacto:</strong> ' . $model->user->profile->contacto . '<br>';
+                                            echo '<strong>Email:</strong> ' . $model->user->email . '<br>';
+
+                                        } else {
+                                        echo 'Perfil do utilizador não encontrado.';
+                                        }
+                                        ?>
                                     </address>
                                 </div>
 
                                 <div class="col-sm-4 invoice-col">
-                                    <b>Invoice #007612</b><br>
-                                    <br>
-                                    <b>Order ID:</b> 4F3S8J<br>
-                                    <b>Payment Due:</b> 2/22/2014<br>
-                                    <b>Account:</b> 968-34567
+                                    <address>
+                                        <?php
+                                        echo '<strong>Nr Fatura:</strong> ' . $model->id . '<br>';
+
+                                        ?>
+                                    </address>
+
                                 </div>
 
                             </div>
-
 
                             <div class="row">
                                 <div class="col-12 table-responsive">
@@ -97,36 +115,23 @@ use yii\widgets\ActiveForm;
                                             <th>Description</th>
                                             <th>Subtotal</th>
                                         </tr>
-                                        </thead>
+
+                                            <tr>
+                                                <th>ID da Linha de Fatura</th>
+                                                <th>Outros Detalhes</th>
+                                            </tr>
+                                          
+
+
+
                                         <tbody>
+
                                         <tr>
-                                            <td>1</td>
-                                            <td>Call of Duty</td>
-                                            <td>455-981-221</td>
-                                            <td>El snort testosterone trophy driving gloves handsome</td>
-                                            <td>$64.50</td>
+
+                                            <?= Html::a('Selecionar Artigo', ['linha-fatura/selecionar-artigos'], ['class' => 'btn btn-primary']) ?>
+
                                         </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Need for Speed IV</td>
-                                            <td>247-925-726</td>
-                                            <td>Wes Anderson umami biodiesel</td>
-                                            <td>$50.00</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Monsters DVD</td>
-                                            <td>735-845-642</td>
-                                            <td>Terry Richardson helvetica tousled street art master</td>
-                                            <td>$10.70</td>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Grown Ups Blue Ray</td>
-                                            <td>422-568-642</td>
-                                            <td>Tousled lomo letterpress</td>
-                                            <td>$25.99</td>
-                                        </tr>
+                                        <?php ActiveForm::end(); ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -154,19 +159,19 @@ use yii\widgets\ActiveForm;
                                         <table class="table">
                                             <tr>
                                                 <th style="width:50%">Subtotal:</th>
-                                                <td>$250.30</td>
+                                                <td></td>
                                             </tr>
                                             <tr>
-                                                <th>Tax (9.3%)</th>
-                                                <td>$10.34</td>
+                                                <th>Tax (23%)</th>
+                                                <td></td>
                                             </tr>
                                             <tr>
                                                 <th>Shipping:</th>
-                                                <td>$5.80</td>
+                                                <td></td>
                                             </tr>
                                             <tr>
                                                 <th>Total:</th>
-                                                <td>$265.24</td>
+                                                <td></td>
                                             </tr>
                                         </table>
                                     </div>
@@ -178,8 +183,8 @@ use yii\widgets\ActiveForm;
                             <div class="row no-print">
                                 <div class="col-12">
                                     <a href="invoice-print.html" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
-                                    <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
-                                        Payment
+                                    <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+
                                     </button>
                                     <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
                                         <i class="fas fa-download"></i> Generate PDF
@@ -194,14 +199,5 @@ use yii\widgets\ActiveForm;
         </section>
 
     </div>
-
-
-
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
 
 </div>
