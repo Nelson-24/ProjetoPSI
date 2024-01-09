@@ -8,30 +8,37 @@ use yii\grid\GridView;
 
 /** @var yii\web\View $this */
 /** @var yii\data\ActiveDataProvider $dataProvider */
-
-$this->title = 'Users';
+/** @var app\models\SearchCliente $searchModel */
+/** @var User $model */
+$this->title = 'Clientes';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('Adicionar Cliente', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
 
-    <?= GridView::widget([
+    <?=
+    GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'username',
-            'auth_key',
-            'password_hash',
-            'password_reset_token',
-            //'email:email',
+            [
+                'attribute' => 'nome',
+                'label' => 'Nome',
+                'value' => 'profile.nome',
+            ],
+
+            //'auth_key',
+            //'password_hash',
+           // 'password_reset_token',
+            'email:email',
             //'status',
             //'created_at',
             //'updated_at',

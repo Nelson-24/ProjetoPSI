@@ -1,11 +1,13 @@
 <?php
 
+
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
 /** @var common\models\User $model */
-/** @var \common\models\Profile $model */
+
+
 /** @var yii\widgets\ActiveForm $form */
 
 ?>
@@ -16,6 +18,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'username')->textInput() ?>
     <?= $form->field($model, 'password')->passwordInput() ?>
     <?= $form->field($model, 'email')->textInput() ?>
+
 
 
     <?= $form->field($model, 'nome')->textInput() ?>

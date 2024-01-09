@@ -10,6 +10,7 @@ use frontend\models\ResendVerificationEmailForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
+use common\models\Artigos;
 use yii\base\InvalidArgumentException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -75,7 +76,14 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        // Aqui você pode acessar os campos do modelo Artigo
+        $artigos = Artigos::find()->all(); // Por exemplo, obtendo todos os artigos
+
+        // Outras operações com os artigos, como passar para a view, etc.
+
+        return $this->render('index', [
+            'artigos' => $artigos, // Passando os artigos para a view
+        ]);
     }
 
     /**
