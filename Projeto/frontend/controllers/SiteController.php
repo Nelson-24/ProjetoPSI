@@ -2,19 +2,19 @@
 
 namespace frontend\controllers;
 
+use common\models\LoginForm;
+use frontend\models\SignupForm;
+use frontend\models\ContactForm;
+use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResendVerificationEmailForm;
+use frontend\models\ResetPasswordForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
 use yii\base\InvalidArgumentException;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
-use common\models\LoginForm;
-use frontend\models\PasswordResetRequestForm;
-use frontend\models\ResetPasswordForm;
-use frontend\models\SignupForm;
-use frontend\models\ContactForm;
 
 /**
  * Site controller
@@ -113,6 +113,26 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
+
+
+    public function actionArtigo()
+{
+    return $this->render('artigo');
+}
+    public function actionDetalhes()
+    {
+        return $this->render('detalhes');
+    }
+    public function actionPerfil()
+    {
+        return $this->render('perfil');
+    }
+    public function actionCarrinho()
+    {
+        return $this->render('carrinho');
+    }
+
+
     /**
      * Displays contact page.
      *
@@ -144,11 +164,7 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
-
-    }public function actionArtigo()
-{
-    return $this->render('artigo');
-}
+    }
 
     /**
      * Signs user up.

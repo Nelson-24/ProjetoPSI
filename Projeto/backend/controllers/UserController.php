@@ -2,19 +2,19 @@
 
 namespace backend\controllers;
 
-use common\models\Artigos;
-use Yii;
+use common\models\User;
+use common\models\Profile;
+use backend\models\SignupForm;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\Response;
-use yii\web\UploadedFile;
+use Yii;
 
 /**
- * ArtigosController implements the CRUD actions for Artigos model.
+ * UserController implements the CRUD actions for User model.
  */
-class ArtigosController extends Controller
+class UserController extends Controller
 {
     /**
      * @inheritDoc
@@ -35,14 +35,14 @@ class ArtigosController extends Controller
     }
 
     /**
-     * Lists all Artigos models.
+     * Lists all User models.
      *
      * @return string
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Artigos::find(),
+            'query' => User::find(),
             /*
             'pagination' => [
                 'pageSize' => 50
@@ -61,8 +61,8 @@ class ArtigosController extends Controller
     }
 
     /**
-     * Displays a single Artigos model.
-     * @param int $id ID
+     * Displays a single User model.
+     * @param int $id
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -74,47 +74,27 @@ class ArtigosController extends Controller
     }
 
     /**
-     * Creates a new Artigos model.
+     * Creates a new User model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Artigos();
+        $model = new SignupForm(); // Use o SignupForm em vez de User diretamente
 
-        if (Yii::$app->request->isPost) {
-            $model->load(Yii::$app->request->post());
-
-            // Tratamento do upload da imagem
-            $model->imagem = UploadedFile::getInstance($model, 'imagem');
-
-            if ($model->validate()) {
-                // Gere um nome único para a imagem
-                $nomeArquivo = 'prefixo_' . Yii::$app->security->generateRandomString(10) . '.' . $model->imagem->extension;
-
-                // Salve o arquivo na pasta desejada
-                $caminhoDestino = '/caminho/para/sua/pasta/imagens/' . $nomeArquivo;
-                $model->imagem->saveAs($caminhoDestino);
-
-                // Salve o nome do arquivo na base de dados
-                $model->imagem = $nomeArquivo;
-
-                // Salve o restante dos dados
-                $model->save();
-
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
+        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
+            // Cadastro bem-sucedido, redirecionar ou exibir mensagem de sucesso
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
             'model' => $model,
         ]);
     }
-
     /**
-     * Updates an existing Artigos model.
+     * Updates an existing User model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id ID
+     * @param int $id
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -132,9 +112,9 @@ class ArtigosController extends Controller
     }
 
     /**
-     * Deletes an existing Artigos model.
+     * Deletes an existing User model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id ID
+     * @param int $id
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -146,15 +126,15 @@ class ArtigosController extends Controller
     }
 
     /**
-     * Finds the Artigos model based on its primary key value.
+     * Finds the User model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id ID
-     * @return Artigos the loaded model
+     * @param int $id
+     * @return User the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Artigos::findOne(['id' => $id])) !== null) {
+        if (($model = User::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

@@ -1,20 +1,17 @@
 <?php
 
-namespace backend\controllers;
+namespace frontend\controllers;
 
 use common\models\Artigos;
-use Yii;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\Response;
-use yii\web\UploadedFile;
 
 /**
- * ArtigosController implements the CRUD actions for Artigos model.
+ * ArtigoController implements the CRUD actions for Artigos model.
  */
-class ArtigosController extends Controller
+class ArtigoController extends Controller
 {
     /**
      * @inheritDoc
@@ -55,12 +52,12 @@ class ArtigosController extends Controller
             */
         ]);
 
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
-        ]);
+        $artigos = $dataProvider->getModels();
+
+        return $this->render('index', ['dataProvider' => $dataProvider, 'artigos' => $artigos]);
     }
 
-    /**
+        /**
      * Displays a single Artigos model.
      * @param int $id ID
      * @return string
@@ -82,28 +79,12 @@ class ArtigosController extends Controller
     {
         $model = new Artigos();
 
-        if (Yii::$app->request->isPost) {
-            $model->load(Yii::$app->request->post());
-
-            // Tratamento do upload da imagem
-            $model->imagem = UploadedFile::getInstance($model, 'imagem');
-
-            if ($model->validate()) {
-                // Gere um nome único para a imagem
-                $nomeArquivo = 'prefixo_' . Yii::$app->security->generateRandomString(10) . '.' . $model->imagem->extension;
-
-                // Salve o arquivo na pasta desejada
-                $caminhoDestino = '/caminho/para/sua/pasta/imagens/' . $nomeArquivo;
-                $model->imagem->saveAs($caminhoDestino);
-
-                // Salve o nome do arquivo na base de dados
-                $model->imagem = $nomeArquivo;
-
-                // Salve o restante dos dados
-                $model->save();
-
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
+        } else {
+            $model->loadDefaultValues();
         }
 
         return $this->render('create', [
