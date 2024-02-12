@@ -2,13 +2,14 @@
 
 namespace backend\controllers;
 
-use backend\models\Fatura;
+use common\models\Fatura;
 use backend\models\LinhaFatura;
 use common\models\Artigos;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use Yii;
 
 /**
  * LinhaFaturaController implements the CRUD actions for LinhaFatura model.
@@ -132,7 +133,6 @@ class LinhaFaturaController extends Controller
             if ($model->load(\Yii::$app->request->post()) && $model->save()) {
 
 
-
                 return $this->redirect(['faturas/update', 'id' => $faturas->id]);
             }
 
@@ -176,6 +176,12 @@ class LinhaFaturaController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+
+            $mqtt = new \PhpMqtt\Client\MqttClient('127.0.0.1', '1883', 'backend');
+            $mqtt->connect();
+            $mqtt->publish('LinhaFatura', 'Linha Fatura Atualizada', 1);
+            $mqtt->disconnect();
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -193,11 +199,14 @@ class LinhaFaturaController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $linhaFatura = $this->findModel($id);
+        $fatura_id = $linhaFatura->faturas_id;
 
-        return $this->redirect(['index']);
+        $linhaFatura->delete();
+
+
+        return $this->redirect(['faturas/update', 'id' => $fatura_id]);
     }
-
     /**
      * Finds the LinhaFatura model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

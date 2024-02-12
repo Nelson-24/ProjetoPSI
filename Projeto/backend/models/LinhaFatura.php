@@ -3,7 +3,7 @@
 namespace backend\models;
 
 use common\models\Artigos;
-use Yii;
+use common\models\Fatura;
 
 /**
  * This is the model class for table "linhafatura".
@@ -77,4 +77,21 @@ class Linhafatura extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Fatura::class, ['id' => 'faturas_id']);
     }
+
+    public function getTotalValue()
+    {
+        return $this->quantidade * $this->valor;
+    }
+
+    public function getTotalValueWithIva()
+    {
+        $iva = 0;
+        if ($this->artigos !== null && $this->artigos->ivas !== null) {
+            $iva = $this->artigos->ivas->percentagem;
+        }
+
+        return $this->quantidade * ($iva + 1) * $this->valor;
+    }
+
+
 }

@@ -2,12 +2,15 @@
 
 namespace frontend\controllers;
 
+use common\models\Artigos;
+use common\models\Fatura;
 use common\models\LoginForm;
-use frontend\models\SignupForm;
+use common\models\User;
 use frontend\models\ContactForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\ResetPasswordForm;
+use frontend\models\SignupForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
 use yii\base\InvalidArgumentException;
@@ -49,6 +52,8 @@ class SiteController extends Controller
                     'logout' => ['post'],
                 ],
             ],
+
+
         ];
     }
 
@@ -75,7 +80,13 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+
+        $artigos = Artigos::find()->all();
+
+
+        return $this->render('index', [
+            'artigos' => $artigos,
+        ]);
     }
 
     /**
@@ -101,6 +112,25 @@ class SiteController extends Controller
         ]);
     }
 
+
+
+    public function actionBusca($query)
+    {
+        $artigos = Artigos::find()
+            ->where(['like', 'descricao', $query])
+            ->limit(3)
+            ->all();
+
+        $sugestoes = [];
+        foreach ($artigos as $artigo) {
+            $sugestoes[] = $artigo->descricao;
+        }
+
+        return json_encode($sugestoes);
+    }
+
+
+
     /**
      * Logs out the current user.
      *
@@ -114,23 +144,6 @@ class SiteController extends Controller
     }
 
 
-
-    public function actionArtigo()
-{
-    return $this->render('artigo');
-}
-    public function actionDetalhes()
-    {
-        return $this->render('detalhes');
-    }
-    public function actionPerfil()
-    {
-        return $this->render('perfil');
-    }
-    public function actionCarrinho()
-    {
-        return $this->render('carrinho');
-    }
 
 
     /**

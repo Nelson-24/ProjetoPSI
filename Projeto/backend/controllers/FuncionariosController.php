@@ -2,6 +2,7 @@
 
 namespace backend\controllers;
 
+use backend\models\SignupForm;
 use common\models\User;
 use app\models\_search;
 use Yii;
@@ -41,7 +42,7 @@ class FuncionariosController extends Controller
      */
 
     public function actionIndex(){
-
+        if (Yii::$app->user->can('verFuncionarios')) {
 
         $searchModel = new _search();
 
@@ -53,6 +54,10 @@ class FuncionariosController extends Controller
 
 
         ]);
+        } else {
+
+            $this->redirect(['site/error']);
+        }
     }
 
 
@@ -77,19 +82,29 @@ class FuncionariosController extends Controller
      */
     public function actionCreate()
     {
-        $model = new User();
+        if (Yii::$app->user->can('criarFuncionarios')) {
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-        } else {
-            $model->loadDefaultValues();
+        $model = new SignupForm();
+
+        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
+
+            $mqtt = new \PhpMqtt\Client\MqttClient('127.0.0.1', '1883', 'backend');
+            $mqtt->connect();
+            $mqtt->publish('Funcionarios', 'Funcionario Criado', 1);
+            $mqtt->disconnect();
+
+
+
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', [
             'model' => $model,
         ]);
+        } else {
+
+            $this->redirect(['site/error']);
+        }
     }
 
     /**
@@ -101,15 +116,28 @@ class FuncionariosController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (Yii::$app->user->can('editarFuncionarios')) {
+
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+
+
+            $mqtt = new \PhpMqtt\Client\MqttClient('127.0.0.1', '1883', 'backend');
+            $mqtt->connect();
+            $mqtt->publish('Funcionarios', 'Funcionario Atualizado', 1);
+            $mqtt->disconnect();
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
         ]);
+        } else {
+
+            $this->redirect(['site/error']);
+        }
     }
 
     /**
@@ -121,9 +149,21 @@ class FuncionariosController extends Controller
      */
     public function actionDelete($id)
     {
+        if (Yii::$app->user->can('eliminarFuncionarios')) {
+
+
         $this->findModel($id)->delete();
 
+            $mqtt = new \PhpMqtt\Client\MqttClient('127.0.0.1', '1883', 'backend');
+            $mqtt->connect();
+            $mqtt->publish('Funcionarios', 'Funcionario Eliminado', 1);
+            $mqtt->disconnect();
+
         return $this->redirect(['index']);
+        } else {
+
+            $this->redirect(['site/error']);
+        }
     }
 
     /**

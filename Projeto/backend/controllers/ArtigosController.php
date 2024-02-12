@@ -4,11 +4,15 @@ namespace backend\controllers;
 
 use common\models\Artigos;
 use common\models\Categoria;
+use common\models\Ivas;
+use Yii;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+use app\components\MqttComponents;
 
 /**
  * ArtigosController implements the CRUD actions for Artigos model.
@@ -40,6 +44,7 @@ class ArtigosController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->can('verArtigos')) {
         $dataProvider = new ActiveDataProvider([
             'query' => Artigos::find(),
             /*
@@ -57,6 +62,10 @@ class ArtigosController extends Controller
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
+        } else {
+
+            $this->redirect(['site/error']);
+        }
     }
 
     /**
@@ -79,19 +88,42 @@ class ArtigosController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Artigos();
+        if (Yii::$app->user->can('criarArtigos')) {
+            $model = new Artigos();
 
-        // Obtém todas as categorias
-        $categoria = Categoria::find()->all();
+            // Obtém todas as categorias
+            $categoria = Categoria::find()->all();
+            $iva = Ivas::find()->all();
 
-        if ($model->load(\Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load(\Yii::$app->request->post())) {
+                $model->save();
+
+                $imagem = UploadedFile::getInstance($model , 'imagem');
+                $imagem->saveAs('C:\wamp64\www\ProjetoPSI_\frontend\web\images\materiais\\' . $imagem->name);
+                $model->imagem = $imagem->name;
+                $model->save();
+
+
+
+                $mqtt = new \PhpMqtt\Client\MqttClient('127.0.0.1', '1883', 'backend');
+                $mqtt->connect();
+                $mqtt->publish('Artigos', 'Artigo Criado'  .$model->descricao , 1);
+                $mqtt->disconnect();
+
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
+
+            return $this->render('create', [
+                'model' => $model,
+                'categoria' => $categoria,
+                'iva' => $iva,
+            ]);
+        } else {
+
+            $this->redirect(['site/error']);
         }
 
-        return $this->render('create', [
-            'model' => $model,
-            'categoria' => $categoria,
-        ]);
     }
 
     /**
@@ -103,15 +135,29 @@ class ArtigosController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        if (Yii::$app->user->can('editarArtigos')) {
+            $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
+
+            $mqtt = new \PhpMqtt\Client\MqttClient('127.0.0.1', '1883', 'backend');
+            $mqtt->connect();
+            $mqtt->publish('Artigos', 'Artigo Atualizado'  .$model->descricao , 1);
+            $mqtt->disconnect();
+
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+
+
+
+            } else {
+
+                $this->redirect(['site/error']);
         }
-
-        return $this->render('update', [
-            'model' => $model,
-        ]);
     }
 
     /**
@@ -123,9 +169,21 @@ class ArtigosController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if (Yii::$app->user->can('eliminarArtigos')) {
+
+         $this->findModel($id)->delete();
+
+            $mqtt = new \PhpMqtt\Client\MqttClient('127.0.0.1', '1883', 'backend');
+            $mqtt->connect();
+            $mqtt->publish('Artigos', 'Artigo Eliminado' , 1);
+            $mqtt->disconnect();
+
 
         return $this->redirect(['index']);
+        } else {
+
+            $this->redirect(['site/error']);
+        }
     }
 
     /**

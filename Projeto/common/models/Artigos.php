@@ -4,6 +4,9 @@ namespace common\models;
 
 use backend\models\LinhaFatura;
 use Yii;
+use yii\web\UploadedFile;
+
+
 
 /**
  * This is the model class for table "artigos".
@@ -14,8 +17,12 @@ use Yii;
  * @property float $preco
  * @property int $stock
  * @property int $categoria_id
+ *  * @property string $imagem
  *
  * @property Categoria $categoria
+ *  * @property Ivas $ivas
+ *
+ *
  * @property Linhascarrinhocompras[] $linhascarrinhocompras
  * @property LinhaFatura[] $linhasfaturas
  * @property Linhasfaturasfornecedores[] $linhasfaturasfornecedores
@@ -29,6 +36,7 @@ class Artigos extends \yii\db\ActiveRecord
     {
         return 'artigos';
     }
+    public $eventImage;
 
     /**
      * {@inheritdoc}
@@ -36,11 +44,13 @@ class Artigos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['referencia', 'descricao', 'preco', 'stock', 'categoria_id'], 'required'],
+            [['referencia', 'descricao', 'preco', 'stock', 'categoria_id', 'imagem'], 'required'],
+            [['eventImage'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg'],
             [['preco'], 'number'],
             [['stock', 'categoria_id'], 'integer'],
             [['referencia', 'descricao'], 'string', 'max' => 45],
             [['categoria_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categoria::class, 'targetAttribute' => ['categoria_id' => 'id']],
+            [['ivas_id'], 'exist', 'skipOnError' => true, 'targetClass' => Ivas::class, 'targetAttribute' => ['ivas_id' => 'id']],
         ];
     }
 
@@ -56,6 +66,8 @@ class Artigos extends \yii\db\ActiveRecord
             'preco' => 'Preco',
             'stock' => 'Stock',
             'categoria_id' => 'Categoria ID',
+            'ivas_id' => 'Iva ID',
+            'imagem' =>'Imagem',
         ];
     }
 
@@ -67,6 +79,11 @@ class Artigos extends \yii\db\ActiveRecord
     public function getCategoria()
     {
         return $this->hasOne(Categoria::class, ['id' => 'categoria_id']);
+    }
+
+    public function getIvas()
+    {
+        return $this->hasOne(Ivas::class, ['id' => 'ivas_id']);
     }
 
     /**

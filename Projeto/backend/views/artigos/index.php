@@ -14,10 +14,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="artigos-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Artigos', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Adicionar Artigos', ['artigos/create'], ['class' => 'btn btn-success', 'id' => 'artigos-create']) ?>
     </p>
 
 

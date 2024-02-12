@@ -2,7 +2,6 @@
 
 namespace common\models;
 
-use backend\models\Fatura;
 use Yii;
 use yii\base\Exception;
 use yii\base\NotSupportedException;
@@ -24,7 +23,13 @@ use yii\web\IdentityInterface;
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
+ *
+ *
+ *
+ * * @property Profile $profile
  */
+
+
 class User extends ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
@@ -42,20 +47,6 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->hasOne(Fatura::class, ['user_id' => 'id']);
     }
-
-    /**
-     * @var mixed|null
-     */
-
-
-
-
-
-
-    public function getProfile()
-{
-    return $this->hasOne(Profile::class, ['user_id' => 'id']);
-}
 
     /**
      * @var mixed|null
@@ -95,10 +86,8 @@ class User extends ActiveRecord implements IdentityInterface
             [['username'], 'unique'],
             [['email'], 'unique'],
             [['password_reset_token'], 'unique'],
-
             [['newPassword'], 'string', 'min' => 8],
             [['password'], 'safe']
-
         ];
     }
 
@@ -115,7 +104,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
+        return static::findOne(['auth_key' => $token, 'status' => self::STATUS_ACTIVE]);
     }
 
     /**
@@ -225,12 +214,10 @@ class User extends ActiveRecord implements IdentityInterface
 
 
 
-
     }
 
    public function getPassword(){
         return '';
-
     }
    /* public function beforeSave($insert)
     {

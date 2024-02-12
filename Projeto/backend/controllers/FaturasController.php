@@ -3,7 +3,8 @@
 namespace backend\controllers;
 
 use app\models\SearchCliente;
-use backend\models\Fatura;
+use backend\models\Entregas;
+use common\models\Fatura;
 use backend\models\LinhaFatura;
 use common\models\Artigos;
 use common\models\User;
@@ -12,6 +13,7 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\db\ActiveRecord;
 
 /**
  * FaturasController implements the CRUD actions for Fatura model.
@@ -43,23 +45,29 @@ class FaturasController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->can('verFaturas')) {
+
         $dataProvider = new ActiveDataProvider([
             'query' => Fatura::find(),
-            /*
-            'pagination' => [
-                'pageSize' => 50
-            ],
+
+//            'pagination' => [
+//                'pageSize' => 50
+//            ],
             'sort' => [
                 'defaultOrder' => [
-                    'id' => SORT_DESC,
+                    'estado' => SORT_DESC,
                 ]
             ],
-            */
+
         ]);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
+        } else {
+
+            $this->redirect(['site/error']);
+        }
     }
 
     /**
@@ -94,8 +102,14 @@ class FaturasController extends Controller
 
     public function actionView($id)
     {
+        $model = Fatura::findOne($id);
+        $dataProvider = new ActiveDataProvider([
+            'query' => LinhaFatura::find()->where(['faturas_id' => $id]),
+        ]);
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -106,23 +120,36 @@ class FaturasController extends Controller
      */
     public function actionCreate($users_id)
     {
-        $model = new Fatura();
+        if (Yii::$app->user->can('criarFaturas')) {
+
+        $model = new Fatura([
+            'users_id' => $users_id,
+            'valorTotal' => 0,
+            'estado' => 'Em lançamento',
+            'data' =>date('Y-m-d-H-i-s')
+        ]);
 
 
-        $model->users_id = $users_id;
+
 
         if ($model->save()) {
+
+            $mqtt = new \PhpMqtt\Client\MqttClient('127.0.0.1', '1883', 'backend');
+            $mqtt->connect();
+            $mqtt->publish('Faturas', 'Fatura Criada'  , 1);
+            $mqtt->disconnect();
 
             return $this->render('create', [
                 'model' => $model,
 
             ]);
-        }
-        else {
+        } else {
             $model->loadDefaultValues();
         }
+        } else {
 
-
+            $this->redirect(['site/error']);
+        }
     }
 
    /* public function actionCreate($users_id)
@@ -153,18 +180,65 @@ class FaturasController extends Controller
      */
     public function actionUpdate($id)
     {
+
+
         $model = Fatura::findOne($id);
 
-        // Carregar as linhas de fatura associadas a esta fatura
-        $dataProvider = new \yii\data\ActiveDataProvider([
+        $dataProvider = new ActiveDataProvider([
             'query' => LinhaFatura::find()->where(['faturas_id' => $id]),
         ]);
+
+        $model->valor = $model->calculateTotalValue();
+        $model->valorIva = $model ->calculateTotalIvaValue();
+        $model->valorTotal = $model ->calculateTotalValueWithIva();
+
+        if ($this->request->isPost && $model->load($this->request->post())) {
+
+
+            $model->estado = 'Não regularizado';
+
+
+            if ($model->opcaoEntrega == 1) {
+                $entrega = new Entregas();
+                $entrega->faturas_id = $model->id;
+                $entrega->status = 'Por Entregar';
+
+
+                $mqtt = new \PhpMqtt\Client\MqttClient('127.0.0.1', '1883', 'backend');
+                $mqtt->connect();
+                $mqtt->publish('Entregas', 'Entrega Criada' , 1);
+                $mqtt->disconnect();
+                $entrega->save();
+            }
+
+
+
+
+            if ($model->save()) {
+                foreach ($model->getLinhasFatura()->all() as $linha) {
+                    $artigo = Artigos::findOne($linha->artigos_id);
+                    if ($artigo) {
+                        $artigo->stock -= $linha->quantidade; // Atualização do estoque do artigo
+                        $artigo->save();
+                    }
+                }
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+        }
 
         return $this->render('update', [
             'model' => $model,
             'dataProvider' => $dataProvider,
         ]);
+
+
+
+
+
     }
+
+
+
 
     /**
      * Deletes an existing Fatura model.
@@ -175,9 +249,21 @@ class FaturasController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        if (Yii::$app->user->can('eliminarFaturas')) {
+        $model = Fatura::findOne($id);
+        $model->estado = 'Anulado';
 
+            $mqtt = new \PhpMqtt\Client\MqttClient('127.0.0.1', '1883', 'backend');
+            $mqtt->connect();
+            $mqtt->publish('Faturas', 'Fatura Anulada'  , 1);
+            $mqtt->disconnect();
+
+        $model->save();
         return $this->redirect(['index']);
+        } else {
+
+            $this->redirect(['site/error']);
+        }
     }
 
     /**
